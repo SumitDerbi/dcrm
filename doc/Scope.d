@@ -1,0 +1,22 @@
+- Tailwindcss
+- Django Rest api, mysql at production, sqlite at development
+- pymysql inste4ad of mysqlclient 
+- mac base access can be possible?
+- sms gateway
+- zeptomail for transactional emails
+- fresh, modern, compact application, use shadcn, light weight hig performance 
+- small steps to verify the application 
+- ui and api test cases to minimse errors
+- responsive web application 
+- tanStack Forms and zod, reactquery
+- deployment script with same kind of folder structure as we did in E:\extra\kimplaspiping\kp\deploy.sh 
+- vps or shared hosting using cpanel 
+- no starge service of amazon 
+- also setup django admin for everything 
+- use best arechitecture, best proctises in coding, easy reusable, module in nature
+  and robost
+- passenger_wsgi.py is required as cpanel uses phusion for python 
+- example .env for frontend and backend 
+- build comands for frontend as well, as we are using tailwind, shadcn so required 
+correct static files to be commited 
+- 
