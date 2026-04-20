@@ -44,6 +44,7 @@ A centralized CRM platform for managing the end-to-end lifecycle of customers se
 - **MAC-based access** — device-level access control where possible
 - **Test-driven** — UI and API test cases at every step to minimise errors
 - **Django Admin for everything** — register all models in Django admin for quick back-office access
+- **White-label ready** — company name, logo, colours, and branding are dynamic (stored in DB, managed via Django Admin) so the same codebase can serve different companies or survive a rebrand with zero code changes
 
 ---
 
@@ -150,7 +151,25 @@ A centralized CRM platform for managing the end-to-end lifecycle of customers se
 
 ## Data Model (High-Level)
 
-Tables: `users`, `leads`, `customers`, `loans`, `cases`, `documents`, `fee_plans`, `payments`, `invoices`, `expenses`, `expense_categories`, `tasks`, `notifications`
+Tables: `company_settings`, `users`, `leads`, `customers`, `loans`, `cases`, `documents`, `fee_plans`, `payments`, `invoices`, `expenses`, `expense_categories`, `tasks`, `notifications`
+
+### `company_settings` (singleton — one row)
+
+| Field             | Type       | Purpose                                           |
+| ----------------- | ---------- | ------------------------------------------------- |
+| `company_name`    | CharField  | Displayed in navbar, login, invoices, emails      |
+| `logo`            | ImageField | Uploaded via admin, used in navbar & documents    |
+| `favicon`         | ImageField | Browser tab icon                                  |
+| `primary_color`   | CharField  | Hex code — drives Tailwind theme via CSS variable |
+| `secondary_color` | CharField  | Hex code — accent colour                          |
+| `tagline`         | CharField  | Optional subtitle shown on login/portal           |
+| `address`         | TextField  | Shown on invoices & receipts                      |
+| `phone`           | CharField  | Support/contact number                            |
+| `email`           | EmailField | Support/contact email                             |
+| `website`         | URLField   | Company website link                              |
+| `gst_number`      | CharField  | For invoices (optional)                           |
+
+> Django Admin manages this. Frontend fetches `/api/settings/branding/` on app load and applies company name, logo, and colours globally. No hardcoded brand values anywhere in the codebase.
 
 ---
 
@@ -178,18 +197,55 @@ Tables: `users`, `leads`, `customers`, `loans`, `cases`, `documents`, `fee_plans
 
 ## MVP Phasing
 
-### Phase 1 (Core)
+### Phase 0 — Static UI (Approval)
 
-1. Lead management
-2. Customer module
-3. Loan tracking
-4. Case workflow
-5. Fee management (basic)
-6. Payment tracking
-7. Expense tracking
-8. Customer portal (basic)
+> Build all pages as static React screens with mock data. No API calls.
+> Purpose: get stakeholder sign-off on layout, flow, and UX before backend work.
 
-### Phase 2 (Enhancements)
+1. **Project scaffold** — Django project + Vite React app + Tailwind + shadcn setup
+2. **App shell & layout** — sidebar nav, top bar, responsive shell, role-based menu structure; company name & logo pulled from a branding context (mock data for now, API later)
+3. **Login / Auth screens** — login, OTP verification, forgot password — show dynamic company logo & name
+4. **Dashboard** — summary cards, charts placeholders (admin + customer portal)
+5. **Lead pages** — list (table with filters), create/edit form, detail view
+6. **Customer pages** — list, profile view with financial snapshot, activity log
+7. **Loan pages** — list per customer, add/edit loan form
+8. **Case pages** — list, detail with stage timeline, notes, assignment
+9. **Document pages** — upload area, document list with status badges
+10. **Fee pages** — fee plan list, create fee plan form, fee assignment view
+11. **Payment pages** — payment list, record payment form, receipt preview
+12. **Expense pages** — expense list, add expense form, category filter
+13. **Reports pages** — profit dashboard, revenue/expense charts, lead conversion
+14. **Lender pages** — lender list, detail with negotiation history
+15. **Task pages** — task list, create task, reminders view
+16. **Customer portal** — customer-facing dashboard, case tracker, payment history, document upload
+17. **Communication pages** — call log, SMS/email log, templates
+
+> **Milestone:** all screens reviewed and approved → proceed to Phase 1
+
+### Phase 1 — Backend + Wiring (Core)
+
+> Build Django models, APIs, and wire up the approved static UI to real data.
+
+1. **Django project config** — settings (dev/prod), auth, CORS, pymysql, admin site
+2. **Company settings module** — `company_settings` singleton model, Django Admin UI, `/api/settings/branding/` endpoint, wire frontend branding context to real API
+3. **User & auth module** — user model, roles, JWT login, OTP, Django admin registration
+4. **Lead module** — model, API (CRUD + status transitions), wire Lead UI, tests
+5. **Customer module** — model, API, wire Customer UI, tests
+6. **Loan module** — model, API, wire Loan UI, tests
+7. **Case module** — model, API (stage workflow), wire Case UI, tests
+8. **Document module** — model, file upload API, wire Document UI, tests
+9. **Fee module** — model, fee calculation logic, API, wire Fee UI, tests
+10. **Payment module** — model, API, wire Payment UI, tests
+11. **Expense module** — model, API, wire Expense UI, tests
+12. **Reporting module** — aggregation queries, API, wire Reports UI, tests
+13. **Lender module** — model, API, wire Lender UI, tests
+14. **Task module** — model, API, wire Task UI, tests
+15. **Communication module** — model, ZeptoMail + SMS integration, wire UI, tests
+16. **Customer portal API** — scoped endpoints (own data only), wire portal UI, tests
+17. **Permissions & RBAC** — enforce permission matrix across all APIs and UI routes
+18. **Deployment** — deploy.sh, passenger_wsgi.py, first production deploy
+
+### Phase 2 — Enhancements
 
 1. WhatsApp integration
 2. Chat system
