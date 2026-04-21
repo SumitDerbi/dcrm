@@ -29,9 +29,9 @@ staticfiles/
 node_modules/
 frontend/dist/
 
-# Build output (served by Django)
-static/frontend/
-templates/frontend/
+# Build output — committed to git (server has no Node.js, built locally)
+# static/frontend/  ← tracked
+# templates/frontend/  ← tracked
 
 # IDE
 .vscode/
