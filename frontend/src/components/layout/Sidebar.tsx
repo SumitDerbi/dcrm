@@ -22,13 +22,13 @@ export function Sidebar({ collapsed, onToggleCollapse, className }: SidebarProps
     return (
         <aside
             className={cn(
-                'fixed inset-y-0 left-0 z-30 flex flex-col border-r border-border bg-sidebar transition-all duration-200',
+                'fixed inset-y-0 left-0 z-30 flex flex-col border-r border-sidebar-border bg-sidebar transition-all duration-200',
                 collapsed ? 'w-16' : 'w-60',
                 className
             )}
         >
             {/* Logo / Brand */}
-            <div className="flex h-14 items-center gap-2 border-b border-border px-3">
+            <div className="flex h-14 items-center gap-2 border-b border-sidebar-border bg-sidebar-accent/30 px-3">
                 <img
                     src={logoUrl}
                     alt={companyName}
@@ -38,7 +38,7 @@ export function Sidebar({ collapsed, onToggleCollapse, className }: SidebarProps
                     }}
                 />
                 {!collapsed && (
-                    <span className="truncate text-base font-semibold text-sidebar-foreground">
+                    <span className="truncate text-base font-semibold text-sidebar-foreground tracking-tight">
                         {companyName}
                     </span>
                 )}
@@ -69,11 +69,11 @@ export function Sidebar({ collapsed, onToggleCollapse, className }: SidebarProps
                                         end={item.href === '/'}
                                         className={({ isActive }) =>
                                             cn(
-                                                'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                                                'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors border-l-2',
                                                 collapsed && 'justify-center px-0',
                                                 isActive
-                                                    ? 'bg-sidebar-accent text-sidebar-accent-foreground'
-                                                    : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground'
+                                                    ? 'bg-sidebar-accent text-sidebar-accent-foreground border-l-sidebar-primary'
+                                                    : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground border-l-transparent'
                                             )
                                         }
                                     >
@@ -107,7 +107,7 @@ export function Sidebar({ collapsed, onToggleCollapse, className }: SidebarProps
             {/* Collapse toggle */}
             <button
                 onClick={onToggleCollapse}
-                className="flex h-10 items-center justify-center border-t border-border text-muted-foreground hover:text-foreground"
+                className="flex h-10 items-center justify-center border-t border-sidebar-border text-sidebar-foreground/50 hover:text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
             >
                 {collapsed ? <ChevronsRight className="h-4 w-4" /> : <ChevronsLeft className="h-4 w-4" />}
             </button>

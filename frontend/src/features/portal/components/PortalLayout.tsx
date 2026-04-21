@@ -22,12 +22,12 @@ export default function PortalLayout() {
 
     return (
         <div className="min-h-screen bg-[radial-gradient(circle_at_top,hsl(var(--primary)/0.12),transparent_40%),linear-gradient(to_bottom,hsl(var(--background)),hsl(var(--muted)/0.45))]">
-            <header className="sticky top-0 z-20 border-b bg-background/95 backdrop-blur">
+            <header className="sticky top-0 z-20 border-b bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-md">
                 <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 lg:px-6">
                     <div className="flex items-center gap-3">
                         <button
                             type="button"
-                            className="inline-flex items-center justify-center rounded-md border p-2 lg:hidden"
+                            className="inline-flex items-center justify-center rounded-md border border-white/20 bg-white/10 p-2 lg:hidden hover:bg-white/20"
                             onClick={() => setMobileOpen((current) => !current)}
                             aria-label="Toggle portal navigation"
                         >
@@ -37,14 +37,14 @@ export default function PortalLayout() {
                             <img
                                 src={logoUrl}
                                 alt={companyName}
-                                className="h-9 w-9 rounded-lg border bg-white object-contain p-1"
+                                className="h-9 w-9 rounded-lg border border-white/20 bg-white/10 object-contain p-1"
                                 onError={(event) => {
                                     ; (event.target as HTMLImageElement).style.display = 'none'
                                 }}
                             />
                             <div>
-                                <p className="text-sm font-semibold">{companyName}</p>
-                                <p className="text-xs text-muted-foreground">Customer Portal</p>
+                                <p className="text-sm font-semibold text-white">{companyName}</p>
+                                <p className="text-xs text-white/70">Customer Portal</p>
                             </div>
                         </div>
                     </div>
@@ -57,8 +57,8 @@ export default function PortalLayout() {
                                 end={item.end}
                                 className={({ isActive }) =>
                                     cn(
-                                        'rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground',
-                                        isActive && 'bg-primary/10 text-primary',
+                                        'rounded-md px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/15 hover:text-white',
+                                        isActive && 'bg-white/20 text-white font-medium',
                                     )
                                 }
                             >
@@ -68,30 +68,30 @@ export default function PortalLayout() {
                     </nav>
 
                     <div className="flex items-center gap-2">
-                        <div className="hidden items-center gap-2 rounded-full border bg-background px-3 py-1.5 sm:flex">
-                            <div className="flex size-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <div className="hidden items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 sm:flex">
+                            <div className="flex size-8 items-center justify-center rounded-full bg-white/20 text-white">
                                 <User className="size-4" />
                             </div>
                             <div className="text-left">
-                                <p className="text-sm font-medium">{customer?.name ?? 'Customer'}</p>
-                                <p className="text-xs text-muted-foreground">Secure access</p>
+                                <p className="text-sm font-medium text-white">{customer?.name ?? 'Customer'}</p>
+                                <p className="text-xs text-white/70">Secure access</p>
                             </div>
                         </div>
                         <NavLink
                             to="/portal/notifications"
                             aria-label="Notifications"
-                            className={cn(buttonVariants({ variant: 'ghost', size: 'icon-sm' }), 'hidden sm:inline-flex')}
+                            className={cn(buttonVariants({ variant: 'ghost', size: 'icon-sm' }), 'hidden text-white/80 hover:bg-white/15 hover:text-white sm:inline-flex')}
                         >
                             <Bell className="size-4" />
                         </NavLink>
-                        <NavLink to="/login" className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'gap-1')}>
+                        <NavLink to="/login" className={cn(buttonVariants({ size: 'sm' }), 'gap-1 border border-white/20 bg-white/15 text-white hover:bg-white/25')}>
                             <LogOut className="size-3.5" /> Logout
                         </NavLink>
                     </div>
                 </div>
 
                 {mobileOpen && (
-                    <div className="border-t bg-background lg:hidden">
+                    <div className="border-t border-white/20 lg:hidden">
                         <nav className="mx-auto flex max-w-6xl flex-col px-4 py-2">
                             {navItems.map((item) => (
                                 <NavLink
@@ -101,8 +101,8 @@ export default function PortalLayout() {
                                     onClick={() => setMobileOpen(false)}
                                     className={({ isActive }) =>
                                         cn(
-                                            'rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground',
-                                            isActive && 'bg-primary/10 text-primary',
+                                            'rounded-md px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/15 hover:text-white',
+                                            isActive && 'bg-white/20 text-white font-medium',
                                         )
                                     }
                                 >

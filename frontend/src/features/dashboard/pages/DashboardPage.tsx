@@ -8,20 +8,20 @@ import {
     TrendingUp,
     Plus,
 } from 'lucide-react'
-import { StatCard } from '@/components/ui/stat-card'
+import { StatCard, type StatCardColor } from '@/components/ui/stat-card'
 import { ChartPlaceholder } from '@/components/ui/chart-placeholder'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { TodayReminders } from '@/features/tasks/components/TodayReminders'
 
-const stats = [
-    { title: 'Total Leads', value: '248', icon: UserPlus, change: 12, changeLabel: 'vs last month' },
-    { title: 'Active Cases', value: '64', icon: Briefcase, change: 8, changeLabel: 'vs last month' },
-    { title: 'Revenue This Month', value: '₹4,52,000', icon: IndianRupee, change: 15, changeLabel: 'vs last month' },
-    { title: 'Pending Payments', value: '₹1,28,000', icon: CreditCard, change: -5, changeLabel: 'vs last month' },
-    { title: 'Overdue Payments', value: '₹38,500', icon: AlertTriangle, change: -12, changeLabel: 'vs last month' },
-    { title: 'Net Profit', value: '₹2,84,000', icon: TrendingUp, change: 18, changeLabel: 'vs last month' },
+const stats: { title: string; value: string; icon: typeof UserPlus; change: number; changeLabel: string; color: StatCardColor }[] = [
+    { title: 'Total Leads',         value: '248',       icon: UserPlus,     change: 12,  changeLabel: 'vs last month', color: 'blue'    },
+    { title: 'Active Cases',        value: '64',        icon: Briefcase,    change: 8,   changeLabel: 'vs last month', color: 'violet'  },
+    { title: 'Revenue This Month',  value: '₹4,52,000', icon: IndianRupee,  change: 15,  changeLabel: 'vs last month', color: 'emerald' },
+    { title: 'Pending Payments',    value: '₹1,28,000', icon: CreditCard,   change: -5,  changeLabel: 'vs last month', color: 'amber'   },
+    { title: 'Overdue Payments',    value: '₹38,500',   icon: AlertTriangle,change: -12, changeLabel: 'vs last month', color: 'rose'    },
+    { title: 'Net Profit',          value: '₹2,84,000', icon: TrendingUp,   change: 18,  changeLabel: 'vs last month', color: 'teal'    },
 ]
 
 const recentActivity = [
@@ -65,7 +65,7 @@ export default function DashboardPage() {
                         <CardTitle className="text-base">Lead Conversion Funnel</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <ChartPlaceholder title="Lead Conversion Funnel" />
+                        <ChartPlaceholder title="Lead Conversion Funnel" type="bar" />
                     </CardContent>
                 </Card>
                 <Card>
@@ -73,7 +73,7 @@ export default function DashboardPage() {
                         <CardTitle className="text-base">Revenue vs Expenses</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <ChartPlaceholder title="Revenue vs Expenses (Bar)" />
+                        <ChartPlaceholder title="Revenue vs Expenses" type="trend" />
                     </CardContent>
                 </Card>
                 <Card>
@@ -81,7 +81,7 @@ export default function DashboardPage() {
                         <CardTitle className="text-base">Case Status Distribution</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <ChartPlaceholder title="Case Status (Pie)" />
+                        <ChartPlaceholder title="Case Status Distribution" type="pie" />
                     </CardContent>
                 </Card>
                 <Card>
@@ -89,7 +89,7 @@ export default function DashboardPage() {
                         <CardTitle className="text-base">Monthly Trend</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <ChartPlaceholder title="Monthly Trend (Line)" />
+                        <ChartPlaceholder title="Monthly Revenue Trend" type="line" />
                     </CardContent>
                 </Card>
             </div>

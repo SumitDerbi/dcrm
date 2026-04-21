@@ -17,8 +17,8 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
 
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
-            <SheetContent side="left" className="w-72 p-0">
-                <SheetHeader className="flex h-14 flex-row items-center gap-2 border-b border-border px-4">
+            <SheetContent side="left" className="w-72 bg-sidebar p-0 text-sidebar-foreground">
+                <SheetHeader className="flex h-14 flex-row items-center gap-2 border-b border-sidebar-border bg-sidebar-accent/30 px-4">
                     <img
                         src={logoUrl}
                         alt={companyName}
@@ -40,7 +40,7 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
 
                             return (
                                 <div key={group.label} className="mb-2">
-                                    <p className="px-4 py-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                                    <p className="px-4 py-1 text-xs font-medium uppercase tracking-wider text-sidebar-foreground/50">
                                         {group.label}
                                     </p>
                                     {visibleItems.map((item) => {
@@ -53,10 +53,10 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
                                                     onClick={() => onOpenChange(false)}
                                                     className={({ isActive }) =>
                                                         cn(
-                                                            'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                                                            'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors border-l-2',
                                                             isActive
-                                                                ? 'bg-sidebar-accent text-sidebar-accent-foreground'
-                                                                : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground'
+                                                                ? 'bg-sidebar-accent text-sidebar-accent-foreground border-l-sidebar-primary'
+                                                                : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground border-l-transparent'
                                                         )
                                                     }
                                                 >
